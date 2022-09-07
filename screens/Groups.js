@@ -23,6 +23,7 @@ const Item = ({navigation, title }) => (
 
 export default function Groups({ navigation }) {
     const [outputs, setOutputs] = useState([]);
+    const [refreshing, setRefreshing] = useState(false);
 
     const renderItem = ({ item }) => (
         <Item
@@ -35,12 +36,17 @@ export default function Groups({ navigation }) {
         GROUPS_URL,
         'GET'
     ).then((response) => response.json()).then(async (json) => {
-        console.log(json)
         setOutputs(json.outputs)
     })
 
+    const onRefresh = async () => {
+        setRefreshing(true)
+        void await fetchGroups()
+        setRefreshing(false);
+    };
+
     useEffect(() => {
-        fetchGroups();
+        void fetchGroups();
     }, [])
 
     return (
@@ -48,11 +54,9 @@ export default function Groups({ navigation }) {
             <FlatList
                 data={outputs}
                 renderItem={renderItem}
-
-
                 // keyExtractor={myKeyExtractor}
-                // refreshing={refreshing}
-                // onRefresh={handleRefresh}
+                 refreshing={refreshing}
+                 onRefresh={onRefresh}
             />
         </SafeAreaView>
     )

@@ -4,6 +4,8 @@ import {appUrl, apiUrl} from "../config/config"
 import {validEmailRegex} from "../config/constants"
 import FlashMessage, { showMessage} from "react-native-flash-message"
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import {unAuthenticatedRequest} from "../network/requests";
+import {LOGIN_URL} from "../network/endpoints";
 
 export default function Login({ navigation }) {
     const [email, setEmail] = useState('')
@@ -31,18 +33,14 @@ export default function Login({ navigation }) {
         let validEmail = validateEmail()
 
         if (validEmail && validPassword) {
-            fetch(apiUrl + '/login', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
+            unAuthenticatedRequest(
+                LOGIN_URL,
+                JSON.stringify({
                     email,
                     password
-                })
-
-            }).then((response) => response.json()).then(async (json) => {
+                }),
+                'POST'
+            ).then((response) => response.json()).then(async (json) => {
                 if (json.error !== undefined) {
                     showMessage({
                         message: "Email or Password Incorrect",
@@ -56,7 +54,10 @@ export default function Login({ navigation }) {
                     navigation.push('Groups')
                 }
             }).catch((err) => {
-                console.error(err)
+                showMessage({
+                    message: "Something went wrong, please check your internet connection",
+                    type: "danger",
+                })
             })
         }
     }
@@ -74,7 +75,6 @@ export default function Login({ navigation }) {
     }
 
     let validatePassword = () => {
-        console.log('here 2')
         if (password) {
             setPasswordStyle(validStyle)
             return true

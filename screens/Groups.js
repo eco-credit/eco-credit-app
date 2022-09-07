@@ -1,8 +1,6 @@
 import * as React from 'react';
 import {useEffect, useState} from 'react';
-import {FlatList, SafeAreaView, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View} from 'react-native';
-import {apiUrl} from "../config/config";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import {FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {authenticatedRequest} from "../network/requests";
 import {GROUPS_URL} from "../network/endpoints";
 

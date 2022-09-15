@@ -3,29 +3,31 @@ import {useEffect, useState} from 'react';
 import {FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {authenticatedRequest} from "../network/requests";
 import {GROUPS_URL} from "../network/endpoints";
+import {Transactions} from "../database/transactions";
 
-const goToGroupScreen = function (navigation, title) {
-    navigation.push('Dashboard',
+const goToGroupScreen = function (navigation, id) {
+    navigation.push('GroupView',
         {
-            title: title
+            id
         })
 }
 
-const Item = ({navigation, title }) => (
+const Item = ({navigation, title, id }) => (
     <View style={styles.item}>
-        <TouchableOpacity onPress={() => goToGroupScreen(navigation, title)}>
+        <TouchableOpacity onPress={() => goToGroupScreen(navigation, id)}>
             <Text style={styles.title}>{title}</Text>
         </TouchableOpacity>
     </View>
 );
 
 export default function Groups({ navigation }) {
-    const [outputs, setOutputs] = useState([]);
+    const [groups, setGroups] = useState([]);
     const [refreshing, setRefreshing] = useState(false);
 
     const renderItem = ({ item }) => (
         <Item
             title={item.name}
+            id={item.id}
             navigation={navigation}
         />
     )
@@ -34,7 +36,14 @@ export default function Groups({ navigation }) {
         GROUPS_URL,
         'GET'
     ).then((response) => response.json()).then(async (json) => {
-        setOutputs(json.outputs)
+        let groups = json.data
+        console.log(groups)
+
+        // Transactions.createDatabase()
+
+        setGroups(groups)
+
+        Transactions.createOrUpdateMultiple('groups', groups)
     })
 
     const onRefresh = async () => {
@@ -45,12 +54,13 @@ export default function Groups({ navigation }) {
 
     useEffect(() => {
         void fetchGroups();
+
     }, [])
 
     return (
         <SafeAreaView style={styles.container}>
             <FlatList
-                data={outputs}
+                data={groups}
                 renderItem={renderItem}
                 // keyExtractor={myKeyExtractor}
                  refreshing={refreshing}

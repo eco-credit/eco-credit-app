@@ -3,8 +3,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from "./screens/Login";
 import Dashboard from "./screens/Dashboard";
-import LandManagers from "./screens/LandManagers";
 import Groups from "./screens/Groups";
+import Group from "./screens/GroupView/Group";
 
 const Stack = createNativeStackNavigator();
 
@@ -28,6 +28,13 @@ export default function App() {
               component={Groups}
               options={{ headerShown: false }}
           />
+
+            <Stack.Screen
+                name="Group"
+                component={Group}
+                options={{ headerShown: false }}
+            />
+
         </Stack.Navigator>
       </NavigationContainer>
   );

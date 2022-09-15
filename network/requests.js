@@ -6,12 +6,10 @@ export const unAuthenticatedRequest = (url, body = {}, method = 'GET', token = n
         'Accept': 'application/json',
         'Content-Type': 'application/json',
     }
-    console.log(token)
+
     if (token) {
         headers['Authorization'] = 'Bearer ' + token
     }
-
-    console.log(headers)
 
     let init = {
         headers,

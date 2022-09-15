@@ -5,17 +5,17 @@ import {authenticatedRequest} from "../network/requests";
 import {GROUPS_URL} from "../network/endpoints";
 import {Transactions} from "../database/transactions";
 
-const goToGroupScreen = function (navigation, id) {
-    navigation.push('GroupView',
+const goToGroupScreen = function (navigation, group) {
+    navigation.push('Group',
         {
-            id
+            group
         })
 }
 
-const Item = ({navigation, title, id }) => (
+const Item = ({navigation, group }) => (
     <View style={styles.item}>
-        <TouchableOpacity onPress={() => goToGroupScreen(navigation, id)}>
-            <Text style={styles.title}>{title}</Text>
+        <TouchableOpacity onPress={() => goToGroupScreen(navigation, group)}>
+            <Text style={styles.title}>{group.name}</Text>
         </TouchableOpacity>
     </View>
 );
@@ -26,8 +26,7 @@ export default function Groups({ navigation }) {
 
     const renderItem = ({ item }) => (
         <Item
-            title={item.name}
-            id={item.id}
+            group={item}
             navigation={navigation}
         />
     )
@@ -43,7 +42,7 @@ export default function Groups({ navigation }) {
 
         setGroups(groups)
 
-        Transactions.createOrUpdateMultiple('groups', groups)
+        // Transactions.createOrUpdateMultiple('groups', groups)
     })
 
     const onRefresh = async () => {

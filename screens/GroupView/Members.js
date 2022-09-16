@@ -1,19 +1,27 @@
 import * as React from "react";
 import {FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 
+const goToMemberScreen = function (navigation, member) {
+    navigation.push('Dashboard',
+        {
+            member
+        })
+}
+
 const Item = ({navigation, member }) => (
     <View style={styles.item}>
         <TouchableOpacity onPress={() => goToMemberScreen(navigation, member)}>
             <Text style={styles.title}>{member.first_name + " " + member.last_name}</Text>
         </TouchableOpacity>
     </View>
-);
+)
 
-export default function Members({ route }) {
+export default function Members({ navigation, route }) {
     const members = Object.values(route.params)
 
     const renderItem = ({ item }) => (
         <Item
+            navigation={navigation}
             member={item}
             id={item.id}
         />
@@ -24,7 +32,6 @@ export default function Members({ route }) {
             <FlatList
                 data={members}
                 renderItem={renderItem}
-
                 keyExtractor={item => item.id}
                 // refreshing={refreshing}
                 // onRefresh={onRefresh}

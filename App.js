@@ -2,7 +2,7 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from "./screens/Login";
-import Dashboard from "./screens/Dashboard";
+import Dashboard from "./screens/MemberView/Dashboard";
 import Groups from "./screens/Groups";
 import Group from "./screens/GroupView/Group";
 

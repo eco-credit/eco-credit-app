@@ -1,3 +1,49 @@
-export default function Savings() {
-    return null;
+import TableComponent from "../../components/TableComponent";
+
+function parseDate(input) {
+    const parts = input.match(/(\d+)/g);
+
+    return new Date(parts[2], parts[1]-1, parts[0]);
+}
+
+export default function Savings({ route }) {
+    let { savings } = route.params
+
+    savings = savings.sort(function(a, b) {
+        return new Date(parseDate(b.date)) - new Date(parseDate(a.date));
+    }).map(function (saving, index) {
+        let total = savings.length
+
+        let balance = () => {
+            let balance = 0;
+
+            for (let i = total - 1; i >= index; i--) {
+                if (saving.debcred === "C") {
+                    balance += Number(savings[i].amount)
+                    continue
+                }
+
+                balance -= Number(savings[i].amount)
+            }
+
+            return balance
+        }
+
+        return [
+            saving.date,
+            saving.debcred === "D" ? saving.amount : "",
+            saving.debcred === "C" ? saving.amount : "",
+            balance.call()
+        ]
+    })
+
+    let data = {
+        headers: ['Date', 'Withdrawal', 'Deposit', 'Balance'],
+        body: savings,
+        widthAttr: [100, 100, 90, 80]
+    }
+
+    return (
+        <TableComponent data={data} />
+    )
 }

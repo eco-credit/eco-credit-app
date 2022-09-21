@@ -1,5 +1,5 @@
-import * as React from "react";
 import {StyleSheet, Text, View} from 'react-native';
+import TableComponent from "../../components/TableComponent";
 
 const GridItem = ({ title, value }) => (
     <View style={styles.item}>
@@ -11,7 +11,21 @@ const GridItem = ({ title, value }) => (
 
 export default function Overview({ route, navigation }) {
     const group = route.params
-    console.log(group)
+
+    const milestones = group.milestones.map((milestone, key) => {
+            return [
+                milestone.requirement,
+                milestone.time,
+            ]
+        }
+    )
+
+    let data = {
+        headers: ['Requirement', 'Timing'],
+        body: milestones,
+        widthAttr: [200, 180]
+    }
+
     return (
         <View>
             <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
@@ -26,24 +40,14 @@ export default function Overview({ route, navigation }) {
                 <GridItem title={'Project Manager Email'} value={group.project_manager.email} />
             </View>
             <Text style={ styles.title }>{'Milestones'}</Text>
-            <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-                {group.milestones.map((milestone, key) => {
-                    return (
-                        <View>
-                            <Text>Requirement: { milestone.requirement }</Text>
-                            <Text>Timing: { milestone.time }</Text>
-                            <Text></Text>
-                        </View>
-                    )
-                })}
-            </View>
+            <TableComponent data={data}/>
         </View>
     )
 }
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 20,
+        // padding: 20,
     },
     row: {
         flexDirection: "row",

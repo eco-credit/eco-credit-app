@@ -1,9 +1,8 @@
-import * as React from 'react';
-import {useEffect, useState} from 'react';
-import {FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {authenticatedRequest} from "../network/requests";
 import {GROUPS_URL} from "../network/endpoints";
-import {Transactions} from "../database/transactions";
+import {FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import LoadingComponent from "../components/LoadingComponent";
+import {useEffect, useState} from 'react';
 
 const goToGroupScreen = function (navigation, group) {
     navigation.push('Group',
@@ -56,17 +55,20 @@ export default function Groups({ navigation }) {
 
     }, [])
 
-    return (
-        <SafeAreaView style={styles.container}>
-            <FlatList
-                data={groups}
-                renderItem={renderItem}
-                // keyExtractor={myKeyExtractor}
-                 refreshing={refreshing}
-                 onRefresh={onRefresh}
-            />
-        </SafeAreaView>
-    )
+    if (groups.length > 0) {
+        return (
+            <SafeAreaView style={styles.container}>
+                <FlatList
+                    data={groups}
+                    renderItem={renderItem}
+                    //  keyExtractor={(Math.random() + 1).toString(36).substring(7)}
+                    refreshing={refreshing}
+                    onRefresh={onRefresh}
+                />
+            </SafeAreaView>
+        )
+    }
+    return <LoadingComponent />
 }
 
 const styles = StyleSheet.create({

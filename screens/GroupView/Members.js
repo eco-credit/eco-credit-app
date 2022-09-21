@@ -1,28 +1,30 @@
-import * as React from "react";
 import {FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {useState} from "react";
 
-const goToMemberScreen = function (navigation, member) {
+const goToMemberScreen = function (navigation, member, milestones) {
     navigation.push('Dashboard',
         {
-            member
+            member,
+            milestones
         })
 }
 
-const Item = ({navigation, member }) => (
+const Item = ({navigation, member, milestones}) => (
     <View style={styles.item}>
-        <TouchableOpacity onPress={() => goToMemberScreen(navigation, member)}>
+        <TouchableOpacity onPress={() => goToMemberScreen(navigation, member, milestones)}>
             <Text style={styles.title}>{member.first_name + " " + member.last_name}</Text>
         </TouchableOpacity>
     </View>
 )
 
 export default function Members({ navigation, route }) {
-    const members = Object.values(route.params)
+    const { members, milestones } = route.params
 
     const renderItem = ({ item }) => (
         <Item
             navigation={navigation}
             member={item}
+            milestones={milestones}
             id={item.id}
         />
     )

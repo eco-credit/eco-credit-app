@@ -1,5 +1,6 @@
-import {StyleSheet, Text, View} from 'react-native';
-import TableComponent from "../../components/TableComponent";
+import {StyleSheet, Text, View} from 'react-native'
+import TableComponent from "../../components/TableComponent"
+import {useEffect} from "react"
 
 const GridItem = ({ title, value }) => (
     <View style={styles.item}>
@@ -11,6 +12,12 @@ const GridItem = ({ title, value }) => (
 
 export default function Overview({ route, navigation }) {
     const group = route.params
+
+    useEffect(() => {
+        navigation.setOptions({
+            title: 'Group Overview',
+        });
+    }, []);
 
     const milestones = group.milestones.map((milestone, key) => {
             return [

@@ -1,5 +1,6 @@
 import {FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import {useState} from "react";
+import MemberComponent from "../../components/MemberComponent";
+import {useEffect} from "react";
 
 const goToMemberScreen = function (navigation, member, milestones) {
     navigation.push('Dashboard',
@@ -9,34 +10,31 @@ const goToMemberScreen = function (navigation, member, milestones) {
         })
 }
 
-const Item = ({navigation, member, milestones}) => (
-    <View style={styles.item}>
-        <TouchableOpacity onPress={() => goToMemberScreen(navigation, member, milestones)}>
-            <Text style={styles.title}>{member.first_name + " " + member.last_name}</Text>
-        </TouchableOpacity>
-    </View>
-)
+export default function Members({ navigation, route, props }) {
+    const { members } = route.params
 
-export default function Members({ navigation, route }) {
-    const { members, milestones } = route.params
+    useEffect(() => {
+        navigation.setOptions({
+            headerTitle: 'Group Members',
+        });
+    }, []);
 
     const renderItem = ({ item }) => (
-        <Item
-            navigation={navigation}
+        <MemberComponent
             member={item}
-            milestones={milestones}
-            id={item.id}
+            navigation={navigation}
         />
     )
     
     return (
         <SafeAreaView style={styles.container}>
             <FlatList
+                contentContainerStyle={{flexGrow: 1, justifyContent: 'center'}}
                 data={members}
                 renderItem={renderItem}
                 keyExtractor={item => item.id}
-                // refreshing={refreshing}
-                // onRefresh={onRefresh}
+                showsVerticalScrollIndicator={false}
+                showsHorizontalScrollIndicator={false}
             />
         </SafeAreaView>
     )
@@ -46,9 +44,9 @@ export default function Members({ navigation, route }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        width: "100%",
-        padding: 16,
-        paddingTop: 100,
+        alignItems: 'center',
+        paddingTop: 20,
+        backgroundColor: "#f5f6fa",
     },
     separator: {
         height: 1,

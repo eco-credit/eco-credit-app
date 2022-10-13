@@ -40,7 +40,6 @@ export default function Groups({ navigation }) {
                 <PopUpMenuComponent handleRefresh={onRefresh}/>
             ),
         });
-
     }, [navigation])
 
     if (groups.length > 0) {
@@ -50,7 +49,7 @@ export default function Groups({ navigation }) {
                     contentContainerStyle={{flexGrow: 1, justifyContent: 'center'}}
                     data={groups}
                     renderItem={renderItem}
-                    //  keyExtractor={(Math.random() + 1).toString(36).substring(7)}
+                    keyExtractor={item => item.id}
                     refreshing={refreshing}
                     onRefresh={onRefresh}
                     showsVerticalScrollIndicator={false}

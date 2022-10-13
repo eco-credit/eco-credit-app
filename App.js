@@ -63,7 +63,6 @@ export default function App() {
                         name="Group"
                         component={Group}
                         options={{
-                            title: "Group",
                             headerTitleAlign: 'center'
                         }}
                     />

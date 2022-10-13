@@ -1,12 +1,11 @@
-import Account from "./Account";
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import DataPrivacy from "./DataPrivacy";
-import EnvironmentalRecord from "./EnvironmentalRecord";
-import Loans from "./Loans";
-import Savings from "./Savings";
-import {useFocusEffect} from "@react-navigation/native";
-import {useCallback} from "react";
-import {Button} from "react-native";
+import Account from "./Account"
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
+import DataPrivacy from "./DataPrivacy"
+import EnvironmentalRecord from "./EnvironmentalRecord"
+import Loans from "./Loans"
+import Savings from "./Savings"
+import {useFocusEffect} from "@react-navigation/native"
+import {useCallback} from "react"
 
 const Tab = createBottomTabNavigator();
 
@@ -28,10 +27,25 @@ export default function Dashboard({ route, navigation }) {
                 component={Account}
                 initialParams={{member: member}}
             />
-            <Tab.Screen name="Environmental Record" component={EnvironmentalRecord} initialParams={{milestones}}/>
-            <Tab.Screen name="Savings" component={Savings} initialParams={{savings: member.savings}}/>
-            <Tab.Screen name="Loans" component={Loans} initialParams={{loans: member.loans}}/>
-            <Tab.Screen name="Data Privacy" component={DataPrivacy} initialParams={{member}} />
+            <Tab.Screen
+                name="Environmental Record"
+                component={EnvironmentalRecord}
+                initialParams={{milestones}}/>
+            <Tab.Screen
+                name="Savings"
+                component={Savings}
+                initialParams={{savings: member.savings}}
+            />
+            <Tab.Screen
+                name="Loans"
+                component={Loans}
+                initialParams={{loans: member.loans}}
+            />
+            <Tab.Screen
+                name="Data Privacy"
+                component={DataPrivacy}
+                initialParams={{member}}
+            />
         </Tab.Navigator>
-    );
+    )
 }

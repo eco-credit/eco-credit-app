@@ -1,16 +1,15 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
-    View,
-    StyleSheet,
+    BackHandler,
     Dimensions,
-    TouchableOpacity,
-    Modal,
     FlatList,
     Image,
+    Modal,
     ScrollView,
-    Platform,
-    NativeModules,
-    BackHandler, Text,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
 } from 'react-native';
 
 const GridImageView = ({
@@ -94,7 +93,7 @@ const GridImageView = ({
             </Modal>
 
             <FlatList
-                contentContainerStyle={{paddingBottom: 40}}
+                contentContainerStyle={{paddingBottom: 40, padding: 40}}
                 data={data}
                 renderItem={({index}) => {
                     if (data.length <= index * 3) {

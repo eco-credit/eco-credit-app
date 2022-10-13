@@ -1,5 +1,5 @@
 import {useState} from "react"
-import {Text, View, StyleSheet} from "react-native";
+import {Text, View, StyleSheet, SafeAreaView} from "react-native";
 import DropDownComponent from "../../components/DropDownComponent";
 import {appUrl} from "../../config/config";
 import GridImageView from "react-native-grid-image-viewer";
@@ -25,25 +25,27 @@ export default function EnvironmentalRecord({ route, navigation }) {
     };
 
     return (
-        <View style={styles.container}>
-            <DropDownComponent label="Select Item" data={data} onSelect={setSelected} />
-            {!!selected && (
-                <View>
-                    <Text>
-                        {milestones[selected.value].requirement}
-                    </Text>
-                    <Text>
-                        {milestones[selected.value].time}
-                    </Text>
+        <SafeAreaView>
+            <View style={styles.container}>
+                <DropDownComponent label="Select Item" data={data} onSelect={setSelected} />
+                {!!selected && (
                     <View>
-                        <GridImageComponent
-                            data={getImages()}
-                        />
-                    </View>
+                        <Text>
+                            {milestones[selected.value].requirement}
+                        </Text>
+                        <Text>
+                            {milestones[selected.value].time}
+                        </Text>
+                        <View>
+                            <GridImageComponent
+                                data={getImages()}
+                            />
+                        </View>
 
-                </View>
-            )}
-        </View>
+                    </View>
+                )}
+            </View>
+        </SafeAreaView>
     );
 };
 

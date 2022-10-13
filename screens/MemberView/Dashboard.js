@@ -6,11 +6,11 @@ import Loans from "./Loans";
 import Savings from "./Savings";
 import {useFocusEffect} from "@react-navigation/native";
 import {useCallback} from "react";
+import {Button} from "react-native";
 
 const Tab = createBottomTabNavigator();
 
 export default function Dashboard({ route, navigation }) {
-
     const { member, milestones } = route.params;
 
     useFocusEffect(
@@ -23,7 +23,11 @@ export default function Dashboard({ route, navigation }) {
 
     return (
         <Tab.Navigator>
-            <Tab.Screen name="Account" component={Account} initialParams={{member: member}}/>
+            <Tab.Screen
+                name="Account"
+                component={Account}
+                initialParams={{member: member}}
+            />
             <Tab.Screen name="Environmental Record" component={EnvironmentalRecord} initialParams={{milestones}}/>
             <Tab.Screen name="Savings" component={Savings} initialParams={{savings: member.savings}}/>
             <Tab.Screen name="Loans" component={Loans} initialParams={{loans: member.loans}}/>

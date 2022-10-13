@@ -1,30 +1,18 @@
-import {authenticatedRequest} from "../network/requests";
-import {GROUPS_URL} from "../network/endpoints";
-import {FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import LoadingComponent from "../components/LoadingComponent";
-import {useEffect, useState} from 'react';
-
-const goToGroupScreen = function (navigation, group) {
-    navigation.push('Group',
-        {
-            group
-        })
-}
-
-const Item = ({navigation, group }) => (
-    <View style={styles.item}>
-        <TouchableOpacity onPress={() => goToGroupScreen(navigation, group)}>
-            <Text style={styles.title}>{group.name}</Text>
-        </TouchableOpacity>
-    </View>
-);
+import * as React from 'react'
+import {authenticatedRequest} from "../network/requests"
+import {GROUPS_URL} from "../network/endpoints"
+import {FlatList, SafeAreaView, StyleSheet} from 'react-native'
+import LoadingComponent from "../components/LoadingComponent"
+import {useEffect, useState} from 'react'
+import GroupComponent from "../components/GroupComponent"
+import PopUpMenuComponent from "../components/PopUpMenuComponent"
 
 export default function Groups({ navigation }) {
     const [groups, setGroups] = useState([]);
     const [refreshing, setRefreshing] = useState(false);
 
     const renderItem = ({ item }) => (
-        <Item
+        <GroupComponent 
             group={item}
             navigation={navigation}
         />
@@ -35,79 +23,51 @@ export default function Groups({ navigation }) {
         'GET'
     ).then((response) => response.json()).then(async (json) => {
         let groups = json.data
-        console.log(groups)
-
-        // Transactions.createDatabase()
-
         setGroups(groups)
-
-        // Transactions.createOrUpdateMultiple('groups', groups)
     })
 
     const onRefresh = async () => {
+        setGroups([])
         setRefreshing(true)
         void await fetchGroups()
-        setRefreshing(false);
-    };
+        setRefreshing(false)
+    }
 
     useEffect(() => {
-        void fetchGroups();
+        void fetchGroups()
+        navigation.setOptions({
+            headerRight: () => (
+                <PopUpMenuComponent handleRefresh={onRefresh}/>
+            ),
+        });
 
-    }, [])
+    }, [navigation])
 
     if (groups.length > 0) {
         return (
             <SafeAreaView style={styles.container}>
                 <FlatList
+                    contentContainerStyle={{flexGrow: 1, justifyContent: 'center'}}
                     data={groups}
                     renderItem={renderItem}
                     //  keyExtractor={(Math.random() + 1).toString(36).substring(7)}
                     refreshing={refreshing}
                     onRefresh={onRefresh}
+                    showsVerticalScrollIndicator={false}
+                    showsHorizontalScrollIndicator={false}
                 />
             </SafeAreaView>
         )
     }
+
     return <LoadingComponent />
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        width: "100%",
-        padding: 16,
-        paddingTop: 100,
-    },
-    separator: {
-        height: 1,
-        width: "100%",
-        backgroundColor: '#ff0000',
-    },
-    separateHero: {
-        height: '100vh'
-    },
-    header: {
-        backgroundColor: 'red',
-        width: '100vw',
-        height: 45,
-        justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: 20
+        paddingTop: 20,
+        backgroundColor: "#f5f6fa",
     },
-    headerText: {
-        color: '#fff',
-        fontSize: 18
-    },
-    footer: {
-        backgroundColor: 'white',
-        width: '100vw',
-        height: 45,
-        justifyContent: 'center',
-        alignItems: 'center',
-        bottom: 0
-    },
-    footerText: {
-        color: '#000',
-        fontSize: 18
-    }
-});
+})

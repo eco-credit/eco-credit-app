@@ -2,14 +2,6 @@ import {FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from "
 import MemberComponent from "../../components/MemberComponent";
 import {useEffect} from "react";
 
-const goToMemberScreen = function (navigation, member, milestones) {
-    navigation.push('Dashboard',
-        {
-            member,
-            milestones
-        })
-}
-
 export default function Members({ navigation, route, props }) {
     const { members } = route.params
 

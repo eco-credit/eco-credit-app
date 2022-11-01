@@ -1,7 +1,11 @@
 import {Image, Pressable, StyleSheet, Text} from "react-native"
 
-function goToMembersScreen(navigation, member) {
-    return undefined;
+const goToMemberScreen = function (navigation, member, milestones) {
+    navigation.push('Dashboard',
+        {
+            member,
+            milestones
+        })
 }
 
 const MemberComponent = (props) => {
@@ -10,7 +14,7 @@ const MemberComponent = (props) => {
     return (
         <Pressable
             style={[styles.groupPressable]}
-            onPress={() => goToMembersScreen(navigation, member)}
+            onPress={() => goToMemberScreen(navigation, member)}
         >
             <Image
                 style={styles.rectangleIcon}

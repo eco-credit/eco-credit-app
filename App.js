@@ -47,7 +47,10 @@ export default function App() {
                     <Stack.Screen
                         name="Dashboard"
                         component={Dashboard}
-
+                        options={{
+                            title: "Member View",
+                            headerTitleAlign: 'center'
+                        }}
                     />
                     <Stack.Screen
                         name="Groups"

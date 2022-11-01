@@ -1,37 +1,24 @@
-import * as React from 'react';
-import {SafeAreaView, StyleSheet, View} from "react-native";
-import {useFocusEffect} from "@react-navigation/native"
-import {useCallback} from "react"
-import MapView from "react-native-maps"
-import CardComponent from "../../components/CardComponent";
+import {Image, StyleSheet, Text, View} from "react-native";
 
-export default function Account({ route, navigation }) {
-    const { member } = route.params
+const CardComponent = (title, value) => {
+    if (!value) {
+        return null
+    }
 
-    useFocusEffect(
-        useCallback(() => {
-            navigation.setOptions({
-                // title: "Member View",
-            });
-        }, [navigation])
-    );
-    3
     return (
-        <SafeAreaView style={styles.container}>
-            {CardComponent('First Name', member.first_name)}
-
-            {CardComponent('Last Name', member.last_name)}
-
-            {CardComponent('Primary Livelihood', member.livelihood)}
-
-            {CardComponent('Email', member.email)}
-
-            {CardComponent('Telephone', member.telephone_number)}
-
-            <View style={[styles.groupPressable]}>
-                <MapView style={styles.map}/>
-            </View>
-        </SafeAreaView>
+        <View style={[styles.groupPressable]}>
+            <Image
+                style={styles.rectangleIcon}
+                resizeMode="cover"
+                source={require("../assets/rectangle.png")}
+            />
+            <Text style={styles.groupName}>
+                {title}
+            </Text>
+            <Text style={styles.groupName2}>
+                {value}
+            </Text>
+        </View>
     )
 }
 
@@ -118,7 +105,6 @@ const styles = StyleSheet.create({
         width: 336,
         height: 50,
     },
-    map: {
-        ...StyleSheet.absoluteFillObject,
-    },
 })
+
+export default CardComponent

@@ -1,13 +1,11 @@
-import {FlatList, Image, Pressable, SafeAreaView, StyleSheet, Text, View} from 'react-native'
-import TableComponent from "../../components/TableComponent"
+import * as React from 'react';
+import {SafeAreaView, ScrollView, StyleSheet, Text, View} from 'react-native'
 import {useEffect} from "react"
-import GroupComponent from "../../components/GroupComponent";
-
+import CardComponent from "../../components/CardComponent";
 
 export default function Overview({ route, navigation }) {
     const group = route.params
 
-    console.log(group)
     const ListHeader = () => {
         return (
             <View>
@@ -16,77 +14,44 @@ export default function Overview({ route, navigation }) {
         )
     }
 
-    const groupData = [
-        {
-            title: 'Area',
-            value: 0
-        },
-        {
-            title: 'Target Sector',
-            value: 'Test'
-        },
-        {
-            title: 'Basis of funding',
-            value: 'Test'
-        },
-        {
-            title: 'Project Manager Name',
-            value: group.project_manager.first_name + ' ' + group.project_manager.last_name
-        },
-        {
-            title: 'Project Manager Email',
-            value: group.project_manager.email
-        }
-    ]
-
-    const groupRecord = [
-        {
-            title: 'Date When Group Created',
-            value: group.created_at
-        },
-    ]
-
     useEffect(() => {
         navigation.setOptions({
             title: 'Group Overview',
         });
     }, []);
 
-    const renderItem = ({ item }) => (
-        <View
-            style={[styles.groupPressable]}
-        >
-            <Image
-                style={styles.rectangleIcon}
-                resizeMode="cover"
-                source={require("../../assets/rectangle.png")}
-            />
-            <Text style={styles.groupName}>
-                {item.title}
-            </Text>
-            <Text style={styles.groupName2}>
-                {item.value}
-            </Text>
-        </View>
-    )
-
     return (
         <SafeAreaView style={styles.container}>
-
-            <FlatList
-                contentContainerStyle={{flexGrow: 1, justifyContent: 'center'}}
-                data={groupData}
-                renderItem={renderItem}
-                showsVerticalScrollIndicator={false}
-                showsHorizontalScrollIndicator={false}
-            />
-            <FlatList
-                contentContainerStyle={{flexGrow: 1, justifyContent: 'center'}}
-                data={groupRecord}
-                renderItem={renderItem}
-                showsVerticalScrollIndicator={false}
-                showsHorizontalScrollIndicator={false}
-            />
+            <ScrollView showsVerticalScrollIndicator={false}>
+                { CardComponent('Area', '0') }
+                { CardComponent('Target Sector', 'Test') }
+                { CardComponent('Basis of funding', 'Test') }
+                { CardComponent('Project Manager Name', group.project_manager.first_name + ' ' + group.project_manager.last_name) }
+                { CardComponent('Project Manager Email', group.project_manager.email) }
+                <Text>Group Record</Text>
+                { CardComponent('Date when group created', group.created_at) }
+                { CardComponent('Number of outstanding loans', '0') }
+                { CardComponent('Value of outstanding loans', '0') }
+                { CardComponent('Total loans to group members', '0') }
+                { CardComponent('Total amount loaned', '0') }
+                { CardComponent('Total form fees', '0') }
+                { CardComponent('Total interest', '0') }
+                { CardComponent('Loans past term', '0') }
+                { CardComponent('% of loans paid late', '0') }
+                { CardComponent('Average days late', '0') }
+                { CardComponent('Longest days late', '0') }
+                { CardComponent('Total penalties paid', '0') }
+                <Text>Fund Details</Text>
+                { CardComponent('Registration fee', '0') }
+                { CardComponent('Processing fee', '0') }
+                { CardComponent('Administration fee', '0') }
+                { CardComponent('Monthly savings', '0') }
+                { CardComponent('Loan interest', '0') }
+                { CardComponent('Maximum loan size', '0') }
+                { CardComponent('Loan term', '0') }
+                { CardComponent('Grace period', '0') }
+                { CardComponent('Loan security', 'None') }
+            </ScrollView>
         </SafeAreaView>
     )
 }

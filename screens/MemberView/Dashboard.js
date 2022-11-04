@@ -32,7 +32,7 @@ export default function Dashboard({ route, navigation }) {
                         if (focused) {
                             return (
                                 <Image
-                                    style={{ width: 20, height: 20 }}
+                                    style={{ width: 25, height: 20 }}
                                     source={require('../../assets/member_view_selected.png')}
                                 />
                             );
@@ -40,7 +40,7 @@ export default function Dashboard({ route, navigation }) {
 
                         return (
                             <Image
-                                style={{ width: 20, height: 20 }}
+                                style={{ width: 25, height: 20 }}
                                 source={require('../../assets/member_view_unselected.png')}
                             />
                         );

@@ -1,4 +1,5 @@
-import TableComponent from "../../components/TableComponent";
+import {SafeAreaView, ScrollView, StyleSheet} from "react-native";
+import CardComponent2 from "../../components/CardComponent2";
 
 function parseDate(input) {
     const parts = input.match(/(\d+)/g);
@@ -26,21 +27,32 @@ export default function Loans({route, navigation}) {
             }
             return balance
         }
-        return [
-            loan.date,
-            loan.debcred === "D" ? loan.amount : "",
-            loan.debcred === "C" ? loan.amount : "",
-            balance.call()
-        ]
+        return {
+            date: loan.date,
+            type: loan.type[0].toUpperCase() + loan.type.substring(1),
+            amount: loan.amount,
+            balance: balance.call()
+        }
     })
 
-    let data = {
-        headers: ['Date', 'Loan/Fee', 'Repay', 'Balance'],
-        body: loans,
-        widthAttr: [100, 90, 90, 80]
-    }
-
     return (
-        <TableComponent data={data} />
+        <SafeAreaView style={styles.container}>
+            <ScrollView showsVerticalScrollIndicator={false}>
+                {loans.map((loan) => {
+                    return (
+                        <CardComponent2 title={'Date'} value={loan.date}  title2={'Transaction Type'} value2={loan.type} title3={'Amount'}  value3={loan.amount} title4={'Balance'} value4={loan.balance} />
+                    )
+                })}
+            </ScrollView>
+        </SafeAreaView>
     )
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        paddingTop: 20,
+        backgroundColor: "#f5f6fa",
+    },
+});

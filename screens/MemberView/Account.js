@@ -1,9 +1,10 @@
 import * as React from 'react';
-import {SafeAreaView, StyleSheet, View} from "react-native";
+import {SafeAreaView, ScrollView, StyleSheet, View} from "react-native";
 import {useFocusEffect} from "@react-navigation/native"
 import {useCallback} from "react"
 import MapView from "react-native-maps"
 import CardComponent from "../../components/CardComponent";
+import CardComponent2 from "../../components/CardComponent2";
 
 export default function Account({ route, navigation }) {
     const { member } = route.params
@@ -18,19 +19,16 @@ export default function Account({ route, navigation }) {
     3
     return (
         <SafeAreaView style={styles.container}>
-            {CardComponent('First Name', member.first_name)}
-
-            {CardComponent('Last Name', member.last_name)}
-
-            {CardComponent('Primary Livelihood', member.livelihood)}
-
-            {CardComponent('Email', member.email)}
-
-            {CardComponent('Telephone', member.telephone_number)}
-
-            <View style={[styles.groupPressable]}>
-                <MapView style={styles.map}/>
-            </View>
+            <ScrollView showsVerticalScrollIndicator={false}>
+                <CardComponent2 title={'First Name'} value={member.first_name} />
+                <CardComponent2 title={'Last Name'} value={member.last_name} />
+                <CardComponent2 title={'Primary Livelihood'} value={member.livelihood} />
+                <CardComponent2 title={'Email'} value={member.email} />
+                <CardComponent2 title={'Telephone'} value={member.telephone_number} />
+                <View style={[styles.groupPressable]}>
+                    <MapView style={styles.map}/>
+                </View>
+            </ScrollView>
         </SafeAreaView>
     )
 }

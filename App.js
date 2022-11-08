@@ -10,6 +10,7 @@ import {useEffect, useState} from 'react'
 import LoadingComponent from "./components/LoadingComponent"
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { MenuProvider } from 'react-native-popup-menu'
+import Milestone from "./screens/MemberView/Milestone";
 
 const Stack = createNativeStackNavigator()
 
@@ -66,6 +67,15 @@ export default function App() {
                         name="Group"
                         component={Group}
                         options={{
+                            headerTitleAlign: 'center'
+                        }}
+                    />
+
+                    <Stack.Screen
+                        name="Milestone"
+                        component={Milestone}
+                        options={{
+                            title: "Verification",
                             headerTitleAlign: 'center'
                         }}
                     />

@@ -1,5 +1,5 @@
 import {SafeAreaView, ScrollView, StyleSheet, Text, View} from "react-native";
-import CardComponent from "../../components/CardComponent";
+import CardComponent2 from "../../components/CardComponent2";
 
 const DataPrivacy = ({ route }) => {
     const { member } = route.params
@@ -11,8 +11,8 @@ const DataPrivacy = ({ route }) => {
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView showsVerticalScrollIndicator={false}>
-                { CardComponent('Data Processing:', outputPrivacyOption(member.data_processing)) }
-                { CardComponent('Data Sharing:', outputPrivacyOption(member.data_sharing)) }
+                <CardComponent2 title={'Data Processing'} value={outputPrivacyOption(member.data_processing)} />
+                <CardComponent2 title={'Data Sharing'} value={outputPrivacyOption(member.data_sharing)} />
             </ScrollView>
         </SafeAreaView>
     )

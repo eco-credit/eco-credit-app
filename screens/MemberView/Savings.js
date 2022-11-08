@@ -1,4 +1,6 @@
 import TableComponent from "../../components/TableComponent";
+import {SafeAreaView, ScrollView, StyleSheet} from "react-native";
+import CardComponent2 from "../../components/CardComponent2";
 
 function parseDate(input) {
     const parts = input.match(/(\d+)/g);
@@ -29,21 +31,32 @@ export default function Savings({ route }) {
             return balance
         }
 
-        return [
-            saving.date,
-            saving.debcred === "D" ? saving.amount : "",
-            saving.debcred === "C" ? saving.amount : "",
-            balance.call()
-        ]
+        return {
+            date: saving.date,
+            amount: saving.amount ?? "",
+            type: saving.debcred === 'C' ? 'Deposit': 'Withdrawal',
+            balance: balance.call()
+        }
     })
 
-    let data = {
-        headers: ['Date', 'Withdrawal', 'Deposit', 'Balance'],
-        body: savings,
-        widthAttr: [100, 100, 90, 80]
-    }
-
     return (
-        <TableComponent data={data} />
+        <SafeAreaView style={styles.container}>
+            <ScrollView showsVerticalScrollIndicator={false}>
+                {savings.map((saving) => {
+                    return (
+                        <CardComponent2 title={'Date'} value={saving.date}  title2={'Transaction Type'} value2={saving.type} title3={'Amount'}  value3={saving.amount} title4={'Balance'} value4={saving.balance} />
+                    )
+                })}
+            </ScrollView>
+        </SafeAreaView>
     )
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        paddingTop: 20,
+        backgroundColor: "#f5f6fa",
+    },
+});

@@ -1,9 +1,18 @@
-import {FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import MemberComponent from "../../components/MemberComponent";
+import {FlatList, Pressable, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {useEffect} from "react";
+import CardComponent2 from "../../components/CardComponent2";
 
 export default function Members({ navigation, route, props }) {
     const { members } = route.params
+    const { milestones } = route.params
+
+    const goToMemberScreen = function (navigation, member, milestones) {
+        navigation.push('Dashboard',
+            {
+                member,
+                milestones
+            })
+    }
 
     useEffect(() => {
         navigation.setOptions({
@@ -12,10 +21,12 @@ export default function Members({ navigation, route, props }) {
     }, []);
 
     const renderItem = ({ item }) => (
-        <MemberComponent
-            member={item}
-            navigation={navigation}
-        />
+        <Pressable
+            onPress={() => goToMemberScreen(navigation, item, milestones)}
+        >
+            <CardComponent2 title={item.first_name + ' ' + item.last_name} image={require("../../assets/member.png")} />
+        </Pressable>
+
     )
     
     return (

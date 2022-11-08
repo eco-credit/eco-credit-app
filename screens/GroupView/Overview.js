@@ -2,6 +2,7 @@ import * as React from 'react';
 import {SafeAreaView, ScrollView, StyleSheet, Text, View} from 'react-native'
 import {useEffect} from "react"
 import CardComponent from "../../components/CardComponent";
+import CardComponent2 from "../../components/CardComponent2";
 
 export default function Overview({ route, navigation }) {
     const group = route.params
@@ -23,34 +24,33 @@ export default function Overview({ route, navigation }) {
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView showsVerticalScrollIndicator={false}>
-                { CardComponent('Area', '0') }
-                { CardComponent('Target Sector', 'Test') }
-                { CardComponent('Basis of funding', 'Test') }
-                { CardComponent('Project Manager Name', group.project_manager.first_name + ' ' + group.project_manager.last_name) }
-                { CardComponent('Project Manager Email', group.project_manager.email) }
+                <CardComponent2 title={'Area'} value={'0'} />
+                <CardComponent2 title={'Target Sector'} value={'Test'} />
+                <CardComponent2 title={'Basis of funding'} value={'Test'} />
+                <CardComponent2 title={'Project Manager Name'} value={group.project_manager.first_name + ' ' + group.project_manager.last_name} />
+                <CardComponent2 title={'Project Manager Email'} value={group.project_manager.email} />
                 <Text>Group Record</Text>
-                { CardComponent('Date when group created', group.created_at) }
-                { CardComponent('Number of outstanding loans', '0') }
-                { CardComponent('Value of outstanding loans', '0') }
-                { CardComponent('Total loans to group members', '0') }
-                { CardComponent('Total amount loaned', '0') }
-                { CardComponent('Total form fees', '0') }
-                { CardComponent('Total interest', '0') }
-                { CardComponent('Loans past term', '0') }
-                { CardComponent('% of loans paid late', '0') }
-                { CardComponent('Average days late', '0') }
-                { CardComponent('Longest days late', '0') }
-                { CardComponent('Total penalties paid', '0') }
+                <CardComponent2 title={'Date when group created'} value={group.created_at} />
+                <CardComponent2 title={'Number of outstanding loans'} value={'0'} />
+                <CardComponent2 title={'Value of outstanding loans'} value={'0'} />
+                <CardComponent2 title={'Total loans to group members'} value={'0'} />
+                <CardComponent2 title={'Total amount loaned'} value={'0'} />
+                <CardComponent2 title={'Total form fees'} value={'0'} />
+                <CardComponent2 title={'Total interest'} value={'0'} />
+                <CardComponent2 title={'Loans past term'} value={'0'} />
+                <CardComponent2 title={'% of loans paid late'} value={'0'} />
+                <CardComponent2 title={'Average days late'} value={'0'} />
+                <CardComponent2 title={'Longest days late'} value={'0'} />
+                <CardComponent2 title={'Total penalties paid'} value={'0'} />
                 <Text>Fund Details</Text>
-                { CardComponent('Registration fee', '0') }
-                { CardComponent('Processing fee', '0') }
-                { CardComponent('Administration fee', '0') }
-                { CardComponent('Monthly savings', '0') }
-                { CardComponent('Loan interest', '0') }
-                { CardComponent('Maximum loan size', '0') }
-                { CardComponent('Loan term', '0') }
-                { CardComponent('Grace period', '0') }
-                { CardComponent('Loan security', 'None') }
+                <CardComponent2 title={'Registration fee'} value={'0'} />
+                <CardComponent2 title={'Processing fee'} value={'0'} />
+                <CardComponent2 title={'Administration fee'} value={'0'} />
+                <CardComponent2 title={'Monthly savings'} value={'0'} />
+                <CardComponent2 title={'Loan interest'} value={'0'} />
+                <CardComponent2 title={'Maximum loan size'} value={'0'} />
+                <CardComponent2 title={'Loan term'} value={'0'} />
+                <CardComponent2 title={'Loan security'} value={'0'} />
             </ScrollView>
         </SafeAreaView>
     )

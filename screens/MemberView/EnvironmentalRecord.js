@@ -1,60 +1,39 @@
-import {useState} from "react"
-import {Text, View, StyleSheet, SafeAreaView} from "react-native";
-import DropDownComponent from "../../components/DropDownComponent";
-import {appUrl} from "../../config/config";
-import GridImageView from "react-native-grid-image-viewer";
-import GridImageComponent from "../../components/GridImageComponent";
+import {StyleSheet, SafeAreaView, ScrollView, Pressable} from "react-native";
+import CardComponent2 from "../../components/CardComponent2";
+
+
+const goToMilestoneScreen = function (navigation, milestone) {
+    navigation.push('Milestone',
+        {
+            milestone
+        })
+}
 
 export default function EnvironmentalRecord({ route, navigation }) {
-    const [selected, setSelected] = useState(undefined)
-
     const { milestones } = route.params
 
-    const data = [
-        { label: 'Milestone 1', value: '0' },
-        { label: 'Milestone 2', value: '1' },
-        { label: 'Milestone 3', value: '2' },
-        { label: 'Milestone 4', value: '3' },
-        { label: 'Milestone 5', value: '4' },
-    ]
-
-    const getImages = () => {
-        return milestones[selected.value].milestone_files.map((file) => (
-            appUrl + file.file)
-        )
-    };
-
     return (
-        <SafeAreaView>
-            <View style={styles.container}>
-                <DropDownComponent label="Select Item" data={data} onSelect={setSelected} />
-                {!!selected && (
-                    <View>
-                        <Text>
-                            {milestones[selected.value].requirement}
-                        </Text>
-                        <Text>
-                            {milestones[selected.value].time}
-                        </Text>
-                        <View>
-                            <GridImageComponent
-                                data={getImages()}
-                            />
-                        </View>
-
-                    </View>
-                )}
-            </View>
+        <SafeAreaView style={styles.container}>
+            <ScrollView showsVerticalScrollIndicator={false}>
+                {milestones.map((milestone) => {
+                    return (
+                        <Pressable
+                            onPress={() => goToMilestoneScreen(navigation, milestone)}
+                        >
+                            <CardComponent2 title={'Requirement'} value={milestone.requirement} title2={'timing'} value2={ milestone.time} />
+                        </Pressable>
+                    )
+                })}
+            </ScrollView>
         </SafeAreaView>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        // flex: 1,
-        backgroundColor: '#fff',
+        flex: 1,
         alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'column',
+        paddingTop: 20,
+        // backgroundColor: "#f5f6fa",
     },
 });

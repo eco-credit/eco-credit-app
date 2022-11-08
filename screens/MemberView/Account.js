@@ -3,7 +3,6 @@ import {SafeAreaView, ScrollView, StyleSheet, View} from "react-native";
 import {useFocusEffect} from "@react-navigation/native"
 import {useCallback} from "react"
 import MapView from "react-native-maps"
-import CardComponent from "../../components/CardComponent";
 import CardComponent2 from "../../components/CardComponent2";
 
 export default function Account({ route, navigation }) {

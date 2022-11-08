@@ -5,7 +5,6 @@ import Login from "./screens/Login"
 import Dashboard from "./screens/MemberView/Dashboard"
 import Groups from "./screens/Groups"
 import Group from "./screens/GroupView/Group"
-import {Text, TouchableOpacity} from "react-native"
 import {useEffect, useState} from 'react'
 import LoadingComponent from "./components/LoadingComponent"
 import AsyncStorage from '@react-native-async-storage/async-storage'

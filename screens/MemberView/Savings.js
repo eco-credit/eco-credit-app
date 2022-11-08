@@ -1,4 +1,3 @@
-import TableComponent from "../../components/TableComponent";
 import {SafeAreaView, ScrollView, StyleSheet} from "react-native";
 import CardComponent2 from "../../components/CardComponent2";
 

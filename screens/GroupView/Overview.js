@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {SafeAreaView, ScrollView, StyleSheet, Text, View} from 'react-native'
 import {useEffect} from "react"
-import CardComponent from "../../components/CardComponent";
 import CardComponent2 from "../../components/CardComponent2";
 
 export default function Overview({ route, navigation }) {

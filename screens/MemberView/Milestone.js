@@ -1,4 +1,4 @@
-import {Image, SafeAreaView, ScrollView, StyleSheet, Text, View} from "react-native";
+import { SafeAreaView, ScrollView, StyleSheet, View} from "react-native";
 import CardComponent2 from "../../components/CardComponent2";
 import GridImageComponent from "../../components/GridImageComponent";
 import {appUrl} from "../../config/config";

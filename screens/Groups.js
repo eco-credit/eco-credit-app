@@ -1,16 +1,16 @@
 import * as React from 'react'
 import {authenticatedRequest} from "../network/requests"
 import {GROUPS_URL} from "../network/endpoints"
-import {FlatList, Pressable, SafeAreaView, StyleSheet} from 'react-native'
+import {FlatList, Pressable, SafeAreaView, StyleSheet, ToastAndroid} from 'react-native'
 import LoadingComponent from "../components/LoadingComponent"
 import {useEffect, useState} from 'react'
 import PopUpMenuComponent from "../components/PopUpMenuComponent"
 import CardComponent2 from "../components/CardComponent2";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Groups({ navigation }) {
     const [groups, setGroups] = useState([]);
 
-    console.log(groups)
     const [refreshing, setRefreshing] = useState(false);
 
     function goToGroupScreen(navigation, group) {
@@ -28,13 +28,29 @@ export default function Groups({ navigation }) {
         </Pressable>
     )
 
+    const fetchGroupsFromStorage = async () => {
+        let groups = await AsyncStorage.getItem('groups')
+        ToastAndroid.show('No internet connection detected, data was loaded from offline storage!', ToastAndroid.SHORT);
+        return JSON.parse(groups)
+    }
+
+    const saveGroupsToStorage = async (groups) => {
+        await AsyncStorage.setItem('groups', JSON.stringify(groups))
+    }
 
     const fetchGroups = () => authenticatedRequest(
         GROUPS_URL,
         'GET'
     ).then((response) => response.json()).then(async (json) => {
-        let groups = json.data
+        if (json.data) {
+            let groups = json.data
+            await saveGroupsToStorage(groups)
+        } else {
+            await fetchGroupsFromStorage()
+        }
         setGroups(groups)
+    }).catch((error) => {
+        console.log(error)
     })
 
     const onRefresh = async () => {

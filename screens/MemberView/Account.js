@@ -24,9 +24,6 @@ export default function Account({ route, navigation }) {
                 <CardComponent2 title={'Primary Livelihood'} value={member.livelihood} />
                 <CardComponent2 title={'Email'} value={member.email} />
                 <CardComponent2 title={'Telephone'} value={member.telephone_number} />
-                <View style={[styles.groupPressable]}>
-                    <MapView style={styles.map}/>
-                </View>
             </ScrollView>
         </SafeAreaView>
     )

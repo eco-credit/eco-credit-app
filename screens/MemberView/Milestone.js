@@ -3,14 +3,16 @@ import CardComponent2 from "../../components/CardComponent2";
 import GridImageComponent from "../../components/GridImageComponent";
 import {appUrl} from "../../config/config";
 
-const getImages = (milestone) => {
-    return milestone.milestone_files.map((file) => (
-        appUrl + file.file)
-    )
+const getImages = (member, milestoneId) => {
+    return member.files
+        .filter(file => file.milestone_id === milestoneId)
+        .map((file) => (
+            appUrl + file.file
+        ))
 }
 
 export default function Milestone({ route }) {
-    const { milestone } = route.params
+    const { milestone, member } = route.params
 
     return (
         <SafeAreaView style={styles.container}>
@@ -18,7 +20,7 @@ export default function Milestone({ route }) {
                 <CardComponent2 title={'Requirement'} value={milestone.requirement} title2={'Timing'} value2={milestone.time} />
                 <View>
                     <GridImageComponent
-                        data={getImages(milestone)}
+                        data={getImages(member, milestone.id)}
                     />
                 </View>
 

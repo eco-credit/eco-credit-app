@@ -71,7 +71,7 @@ export default function Dashboard({ route, navigation }) {
                     },
                     tabBarLabel: ''
                 }}
-                initialParams={{milestones}}/>
+                initialParams={{milestones, member}}/>
             <Tab.Screen
                 name="Savings"
                 component={Savings}

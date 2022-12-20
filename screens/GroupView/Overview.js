@@ -6,8 +6,6 @@ import CardComponent2 from "../../components/CardComponent2";
 export default function Overview({ route, navigation }) {
     const group = route.params
 
-    console.log(group.fund)
-
     const ListHeader = () => {
         return (
             <View>
@@ -32,26 +30,26 @@ export default function Overview({ route, navigation }) {
                 <CardComponent2 title={'Project Manager Email'} value={group.project_manager.email} />
                 <Text>Group Record</Text>
                 <CardComponent2 title={'Date when group created'} value={group.created_at} />
-                <CardComponent2 title={'Number of outstanding loans'} value={'0'} />
-                <CardComponent2 title={'Value of outstanding loans'} value={'0'} />
-                <CardComponent2 title={'Total loans to group members'} value={group.fund.total_loans} />
-                <CardComponent2 title={'Total amount loaned'} value={group.fund.total_loan_value} />
-                <CardComponent2 title={'Total form fees'} value={group.fund.total_form_fees} />
-                <CardComponent2 title={'Total interest'} value={group.fund.total_interest} />
-                <CardComponent2 title={'Loans past term'} value={'0'} />
-                <CardComponent2 title={'% of loans paid late'} value={'0'} />
-                <CardComponent2 title={'Average days late'} value={'0'} />
-                <CardComponent2 title={'Longest days late'} value={'0'} />
-                <CardComponent2 title={'Total penalties paid'} value={group.fund.total_penalties} />
+                <CardComponent2 title={'Number of outstanding loans'} value={ "Not yet added"} />
+                <CardComponent2 title={'Value of outstanding loans'} value={ "Not yet added"} />
+                <CardComponent2 title={'Total loans to group members'} value={group.fund ? group.fund.total_loans :  "Not yet added"} />
+                <CardComponent2 title={'Total amount loaned'} value={group.fund ? group.fund.total_loan_value  : "Not yet added"} />
+                <CardComponent2 title={'Total form fees'} value={group.fund ? group.fund.total_form_fees : "Not yet added"} />
+                <CardComponent2 title={'Total interest'} value={group.fund ? group.fund.total_interest  : "Not yet added"} />
+                <CardComponent2 title={'Loans past term'} value={ "Not yet added"} />
+                <CardComponent2 title={'% of loans paid late'} value={ "Not yet added"} />
+                <CardComponent2 title={'Average days late'} value={ "Not yet added"} />
+                <CardComponent2 title={'Longest days late'} value={ "Not yet added"} />
+                <CardComponent2 title={'Total penalties paid'} value={group.fund ? group.fund.total_penalties : "Not yet added"} />
                 <Text>Fund Details</Text>
-                <CardComponent2 title={'Registration fee'} value={group.fund.registration_fee} />
-                <CardComponent2 title={'Processing fee'} value={group.fund.processing_fee} />
-                <CardComponent2 title={'Administration fee'} value={group.fund.admin_fee} />
+                <CardComponent2 title={'Registration fee'} value={group.fund ? group.fund.registration_fee : "Not yet added"} />
+                <CardComponent2 title={'Processing fee'} value={group.fund ? group.fund.processing_fee : "Not yet added"} />
+                <CardComponent2 title={'Administration fee'} value={group.fund ? group.fund.admin_fee : "Not yet added"} />
                 <CardComponent2 title={'Monthly savings'} value={'0'} />
-                <CardComponent2 title={'Loan interest'} value={group.fund.loan_interest} />
-                <CardComponent2 title={'Maximum loan size'} value={group.fund.maximum_loan_size} />
-                <CardComponent2 title={'Loan term'} value={group.fund.loan_term + ' Months'} />
-                <CardComponent2 title={'Loan security'} value={group.fund.loan_security} />
+                <CardComponent2 title={'Loan interest'} value={group.fund ? group.fund.loan_interest : "Not yet added"} />
+                <CardComponent2 title={'Maximum loan size'} value={group.fund ? group.fund.maximum_loan_size : "Not yet added"} />
+                <CardComponent2 title={'Loan term'} value={group.fund ? group.fund.loan_term + ' Months'  : "Not yet added"} />
+                <CardComponent2 title={'Loan security'} value={group.fund ? group.fund.loan_security : "Not yet added"} />
             </ScrollView>
         </SafeAreaView>
     )

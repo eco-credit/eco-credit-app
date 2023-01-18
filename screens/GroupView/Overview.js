@@ -1,24 +1,24 @@
-import * as React from "react";
-import { SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
-import { useEffect } from "react";
-import CardComponent2 from "../../components/CardComponent2";
+import * as React from "react"
+import { SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native"
+import { useEffect } from "react"
+import CardComponent2 from "../../components/CardComponent2"
 
 export default function Overview({ route, navigation }) {
-  const group = route.params;
+  const group = route.params
 
   const ListHeader = () => {
     return (
       <View>
         <Text style={styles.projectDetailsText}>Project Details</Text>
       </View>
-    );
-  };
+    )
+  }
 
   useEffect(() => {
     navigation.setOptions({
       title: "Group Overview",
-    });
-  }, []);
+    })
+  }, [])
 
   return (
     <SafeAreaView style={styles.container}>
@@ -154,7 +154,7 @@ export default function Overview({ route, navigation }) {
         />
       </ScrollView>
     </SafeAreaView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -240,4 +240,4 @@ const styles = StyleSheet.create({
     width: 336,
     height: 50,
   },
-});
+})

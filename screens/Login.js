@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from "react"
 import {
   Alert,
   Image,
@@ -8,17 +8,17 @@ import {
   TouchableOpacity,
   View,
   Linking,
-} from "react-native";
-import { appUrl, apiUrl } from "../config/config";
-import { validEmailRegex } from "../config/constants";
-import FlashMessage, { showMessage } from "react-native-flash-message";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { unAuthenticatedRequest } from "../network/requests";
-import { LOGIN_URL } from "../network/endpoints";
+} from "react-native"
+import { appUrl, apiUrl } from "../config/config"
+import { validEmailRegex } from "../config/constants"
+import FlashMessage, { showMessage } from "react-native-flash-message"
+import AsyncStorage from "@react-native-async-storage/async-storage"
+import { unAuthenticatedRequest } from "../network/requests"
+import { LOGIN_URL } from "../network/endpoints"
 
 export default function Login({ navigation }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
 
   const [validStyle] = useState({
     backgroundColor: "#fff",
@@ -27,19 +27,19 @@ export default function Login({ navigation }) {
     height: 45,
     marginBottom: 20,
     alignItems: "center",
-  });
+  })
 
   const [inValidStyle] = useState({
     borderColor: "red",
     borderWidth: 1,
-  });
+  })
 
-  const [emailStyle, setEmailStyle] = useState(validStyle);
-  const [passwordStyle, setPasswordStyle] = useState(validStyle);
+  const [emailStyle, setEmailStyle] = useState(validStyle)
+  const [passwordStyle, setPasswordStyle] = useState(validStyle)
 
   let login = async ({ navigation }) => {
-    let validPassword = validatePassword();
-    let validEmail = validateEmail();
+    let validPassword = validatePassword()
+    let validEmail = validateEmail()
 
     if (validEmail && validPassword) {
       unAuthenticatedRequest(
@@ -56,10 +56,10 @@ export default function Login({ navigation }) {
             showMessage({
               message: "Email or Password Incorrect",
               type: "danger",
-            });
+            })
           } else {
-            await AsyncStorage.setItem("token", json.access_token);
-            navigation.push("Groups");
+            await AsyncStorage.setItem("token", json.access_token)
+            navigation.push("Groups")
           }
         })
         .catch((err) => {
@@ -67,32 +67,32 @@ export default function Login({ navigation }) {
             message:
               "Something went wrong, please check your internet connection",
             type: "danger",
-          });
-        });
+          })
+        })
     }
-  };
+  }
 
   let validateEmail = () => {
-    validEmailRegex.lastIndex = 0;
+    validEmailRegex.lastIndex = 0
 
     if (validEmailRegex.test(email.toString())) {
-      setEmailStyle(validStyle);
-      return true;
+      setEmailStyle(validStyle)
+      return true
     }
 
-    setEmailStyle({ ...validStyle, ...inValidStyle });
-    return false;
-  };
+    setEmailStyle({ ...validStyle, ...inValidStyle })
+    return false
+  }
 
   let validatePassword = () => {
     if (password) {
-      setPasswordStyle(validStyle);
-      return true;
+      setPasswordStyle(validStyle)
+      return true
     }
 
-    setPasswordStyle({ ...validStyle, ...inValidStyle });
-    return false;
-  };
+    setPasswordStyle({ ...validStyle, ...inValidStyle })
+    return false
+  }
 
   return (
     <View style={styles.container}>
@@ -144,7 +144,7 @@ export default function Login({ navigation }) {
 
       <FlashMessage position="top" />
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -194,4 +194,4 @@ const styles = StyleSheet.create({
     backgroundColor: "#3A48C1",
     textDecorationColor: "#fff",
   },
-});
+})

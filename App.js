@@ -22,10 +22,7 @@ export default function App() {
 
   useEffect(() => {
     getToken.call().then((token) => {
-      if (!token) {
-        setDefaultRoute("Login");
-        return;
-      }
+      if (!token) return setDefaultRoute("Login");
       setDefaultRoute("Groups");
     });
   }, []);

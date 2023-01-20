@@ -53,7 +53,7 @@ export default function Groups({ navigation }) {
       .then(async (json) => {
         if (json.data) {
           let groups = json.data
-          await saveGroupsToStorage(groups)
+          // await saveGroupsToStorage(groups)
           setGroups(groups)
         } else {
           await fetchGroupsFromStorage()

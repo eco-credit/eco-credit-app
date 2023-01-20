@@ -20,13 +20,25 @@ const GridImageView = ({
                            transparent = 0.8,
                            heightOfGridImage = Dimensions.get('window').height / 5.5,
                        }) => {
-    const [modal, setModal] = useState({visible: false, data: 0});
+
+    let images = []
+
+    for (let i = 0; i < data.length; i++) {
+        images[i] = "data:image/jpeg;base64," + data[i]
+    }
+
+    const [modal, setModal] = useState({visible: false, images: 0});
     const ref = useRef();
     let key = 0;
 
     const onCloseModal = () => {
-        setModal({visible: false, data: 0});
+        setModal({visible: false, images: 0});
     };
+
+
+
+    console.log(images)
+
 
     useEffect(() => {
         BackHandler.addEventListener('hardwareBackPress', onCloseModal);
@@ -45,7 +57,7 @@ const GridImageView = ({
                 decelerationRate="fast"
                 pagingEnabled
                 horizontal>
-                {data.map((item, key) => (
+                {images.map((item, key) => (
                     <View key={key}>
                         {renderModalImage !== null ? (
                             renderModalImage(item, {
@@ -59,10 +71,7 @@ const GridImageView = ({
                                     backgroundColor: `rgba(0, 0, 0, ${transparent})`,
                                 }}
                                 source={{
-                                    uri: item,
-                                    ...(headers == null || false || headers === {}
-                                        ? {}
-                                        : {method: 'POST', headers}),
+                                    uri: item
                                 }}
                             />
                         )}
@@ -85,7 +94,7 @@ const GridImageView = ({
                 <View style={styles.modalHeader}>
                     <TouchableOpacity
                         onPress={() => {
-                            setModal({visible: false, data: 0});
+                            setModal({visible: false, images: 0});
                         }}>
                         <Text style={styles.modalHeaderCloseText}>X</Text>
                     </TouchableOpacity>
@@ -94,18 +103,18 @@ const GridImageView = ({
 
             <FlatList
                 contentContainerStyle={{paddingBottom: 40, padding: 40}}
-                data={data}
+                data={images}
                 renderItem={({index}) => {
-                    if (data.length <= index * 3) {
+                    if (images.length <= index * 3) {
                         return null;
                     }
                     return (
                         <View style={styles.unit}>
                             <View style={[styles.unit_item, {height: heightOfGridImage}]}>
-                                {data.length > index * 3 ? (
+                                {images.length > index * 3 ? (
                                     <TouchableOpacity
                                         onPress={() => {
-                                            setModal({visible: true, data: index * 3});
+                                            setModal({visible: true, images: index * 3});
 
                                             setTimeout(() => {
                                                 ref.current.scrollTo({
@@ -117,16 +126,12 @@ const GridImageView = ({
                                         }}
                                         style={[styles.unit_item, {height: heightOfGridImage}]}>
                                         {renderGridImage !== null ? (
-                                            renderGridImage(data[index * 3], styles.img)
+                                            renderGridImage(images[index * 3], styles.img)
                                         ) : (
                                             <Image
                                                 style={styles.img}
                                                 source={{
-                                                    uri: data[index * 3],
-                                                    ...(headers == null || false ||
-                                                    headers === {}
-                                                        ? {}
-                                                        : {method: 'POST', headers}),
+                                                    uri: images[index * 3]
                                                 }}
                                             />
                                         )}
@@ -134,10 +139,10 @@ const GridImageView = ({
                                 ) : null}
                             </View>
                             <View style={[styles.unit_item, {height: heightOfGridImage}]}>
-                                {data.length > index * 3 + 1 ? (
+                                {images.length > index * 3 + 1 ? (
                                     <TouchableOpacity
                                         onPress={() => {
-                                            setModal({visible: true, data: index * 3 + 1});
+                                            setModal({visible: true, images: index * 3 + 1});
 
                                             setTimeout(() => {
                                                 ref.current.scrollTo({
@@ -149,16 +154,12 @@ const GridImageView = ({
                                         }}
                                         style={[styles.unit_item, {height: heightOfGridImage}]}>
                                         {renderGridImage !== null ? (
-                                            renderGridImage(data[index * 3 + 1], styles.img)
+                                            renderGridImage(images[index * 3 + 1], styles.img)
                                         ) : (
                                             <Image
                                                 style={styles.img}
                                                 source={{
-                                                    uri: data[index * 3 + 1],
-                                                    ...(headers == null || false ||
-                                                    headers === {}
-                                                        ? {}
-                                                        : {method: 'POST', headers}),
+                                                    uri: images[index * 3 + 1]
                                                 }}
                                             />
                                         )}
@@ -166,10 +167,10 @@ const GridImageView = ({
                                 ) : null}
                             </View>
                             <View style={[styles.unit_item, {height: heightOfGridImage}]}>
-                                {data.length > index * 3 + 2 ? (
+                                {images.length > index * 3 + 2 ? (
                                     <TouchableOpacity
                                         onPress={() => {
-                                            setModal({visible: true, data: index * 3 + 2});
+                                            setModal({visible: true, images: index * 3 + 2});
 
                                             setTimeout(() => {
                                                 ref.current.scrollTo({
@@ -181,16 +182,12 @@ const GridImageView = ({
                                         }}
                                         style={[styles.unit_item, {height: heightOfGridImage}]}>
                                         {renderGridImage !== null ? (
-                                            renderGridImage(data[index * 3 + 2], styles.img)
+                                            renderGridImage(images[index * 3 + 2], styles.img)
                                         ) : (
                                             <Image
                                                 style={styles.img}
                                                 source={{
-                                                    uri: data[index * 3 + 2],
-                                                    ...(headers == null || false ||
-                                                    headers === {}
-                                                        ? {}
-                                                        : {method: 'POST', headers}),
+                                                    uri: images[index * 3 + 2]
                                                 }}
                                             />
                                         )}
